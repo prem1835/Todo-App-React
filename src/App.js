@@ -9,8 +9,14 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    const todoList = localStorage.getItem("todoList");
-    this.setState(() => ({ todoList: JSON.parse(todoList) }));
+    try {
+      const todoList = localStorage.getItem("todoList");
+      if (todoList) {
+        this.setState(() => ({ todoList: JSON.parse(todoList) }));
+      }
+    } catch (e) {
+      // DO NOTHING
+    }
   }
   componentDidUpdate(preProps, preState) {
     if (preState.todoList.length !== this.state.todoList) {
